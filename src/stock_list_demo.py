@@ -147,7 +147,7 @@ class LSClient(object):
                 else:
                     break
 
-            # Start a new thread to hanel real time updates sent
+            # Start a new thread to handle real time updates sent
             # by Lightstreamer Server on the stream connection.
             self._stream_connection_thread = threading.Thread(
                 name="STREAM-CONN-THREAD",

@@ -17,7 +17,7 @@ The script shows all the basic steps required to establish an interaction to Lig
 * Unsubscription from items
 * Final disconnection 
 
-It is important to highlight that the example is not meant be a complete and robust Lightstreamer Client Python library, but it could be used as a starting point to build more complex interactions with the Lightstreamer server to manage all the possible scenarios included in the protocol.
+It is important to highlight that the example is not meant to be a complete and robust Lightstreamer Client Python library, but it could be used as a starting point to build more complex interactions with the Lightstreamer server to manage all the possible scenarios included in the protocol.
 
 ## Install
 

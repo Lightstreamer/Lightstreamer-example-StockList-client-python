@@ -297,7 +297,7 @@ class LSClient(object):
 
 logging.basicConfig(level=logging.INFO)
 
-# Establishing a new connection to the Lightstreamer server
+# Establishing a new connection to the Lightstreamer Server
 lightstreamer_client = LSClient("http://localhost:8080", "DEMO")
 try:
     lightstreamer_client.connect()

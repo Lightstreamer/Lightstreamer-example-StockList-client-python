@@ -103,7 +103,7 @@ class Subscription(object):
 
 
 class LSClient(object):
-    """Manages the communication to Lightstreamer Server"""
+    """Manages the communication with Lightstreamer Server"""
 
     def __init__(self, base_url, adapter_set):
         self._base_url = base_url

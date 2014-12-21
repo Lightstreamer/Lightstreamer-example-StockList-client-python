@@ -326,7 +326,7 @@ subscription.addlistener(on_item_update)
 # Registering the Subscription
 sub_key = lightstreamer_client.subscribe(subscription)
 
-raw_input("{:-^80}".format("HIT CR TO UNSUBSCRIBE AND DISCONNECT FROM \
+raw_input("{:-^80}\n".format("HIT CR TO UNSUBSCRIBE AND DISCONNECT FROM \
 LIGHTSTREAMER"))
 
 # Unsubscribing from Lightstreamer by using the subscription key

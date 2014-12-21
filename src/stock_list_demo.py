@@ -87,10 +87,10 @@ class Subscription(object):
         item_pos = int(toks[0])
         curr_item = self._items_map.get(item_pos, {})
         # Update the map with new values, merging with the previous ones if any.
-        self._items_map[item_pos] = dict(
-            [(k, self._decode(v, curr_item.get(k))) for (k, v)
-             in undecoded_item.items()]
-        )
+        self._items_map[item_pos] = {
+            k: self._decode(v, curr_item.get(k)) for k, v
+            in list(undecoded_item.items())}
+
         item_info = {
             'pos': item_pos,
             'name': self.item_names[item_pos - 1],

@@ -57,7 +57,7 @@ class Subscription(object):
         self._listeners = []
 
     def _decode(self, value, last):
-        """Decodes the field value according to
+        """Decode the field value according to
         Lightstremar Text Protocol specifications.
         """
         if value == "$":
@@ -86,11 +86,13 @@ class Subscription(object):
         # Otherwise create a new empty dict.
         item_pos = int(toks[0])
         curr_item = self._items_map.get(item_pos, {})
-        # Update the map with new values, merging with the previous ones if any.
+        # Update the map with new values, merging with the
+        # previous ones if any.
         self._items_map[item_pos] = {
             k: self._decode(v, curr_item.get(k)) for k, v
-            in list(undecoded_item.items())}
-
+            in list(undecoded_item.items())
+        }
+        # Make an item info as a new event to be passed to listeners
         item_info = {
             'pos': item_pos,
             'name': self.item_names[item_pos - 1],
@@ -129,7 +131,7 @@ class LSClient(object):
         return self._call(CONTROL_URL_PATH, urllib.urlencode(params))
 
     def connect(self):
-        """Establishes a connection to Lightstreamer Server to create
+        """Establish a connection to Lightstreamer Server to create
         a new session.
         """
         self._stream_connection = self._call(
@@ -160,7 +162,7 @@ class LSClient(object):
             raise IOError()
 
     def _join(self):
-        """Awaits the natural STREAM-CONN-THREAD termination."""
+        """Await the natural STREAM-CONN-THREAD termination."""
         if self._stream_connection_thread:
             log.debug("Waiting for STREAM-CONN-THREAD to terminate")
             self._stream_connection_thread.join()
@@ -168,7 +170,7 @@ class LSClient(object):
             log.debug("STREAM-CONN-THREAD terminated")
 
     def disconnect(self):
-        """Requests to close the session previously opened with
+        """Request to close the session previously opened with
         the connect() invocation.
         """
         if self._stream_connection is not None:
@@ -181,7 +183,7 @@ class LSClient(object):
             log.warning("No connection to Lightstreamer")
 
     def destroy(self):
-        """Destroys the session previously opened with
+        """Destroy the session previously opened with
         the connect() invocation.
         """
         if self._stream_connection is not None:
@@ -195,7 +197,7 @@ class LSClient(object):
                 log.warning("No connection to Lightstreamer")
 
     def subscribe(self, subscription):
-        """"Performs a subscription request to Lgihtstreamer Server."""
+        """"Perform a subscription request to Lightstreamer Server."""
         # Register the Subscription with a new subscription key
         self._current_subscription_key += 1
         self._subscriptions[self._current_subscription_key] = subscription
@@ -212,10 +214,9 @@ class LSClient(object):
         return self._current_subscription_key
 
     def unsubscribe(self, subcription_key):
-        """Unregister sthe Subscription associated to the
+        """Unregister the Subscription associated to the
         specified subscription_key.
         """
-
         if subcription_key in self._subscriptions:
             control_connection = self._control({
                 "LS_Table": subcription_key,
@@ -317,8 +318,8 @@ subscription = Subscription("MERGE", "QUOTE_ADAPTER",
 
 # A simple function acting as a Subscription listener
 def on_item_update(item_update):
-    print("{stock_name:<19}: Last{last_price:>6} - Time {time:<8} - \
-    Bid {bid:>5} - Ask {ask:>5}".format(**item_update["values"]))
+    print("{stock_name:<19}: Last{last_price:>6} - Time {time:<8} - "
+          "Bid {bid:>5} - Ask {ask:>5}".format(**item_update["values"]))
 
 # Adding the "on_item_update" function to Subscription
 subscription.addlistener(on_item_update)

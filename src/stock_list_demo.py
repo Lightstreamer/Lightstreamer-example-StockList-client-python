@@ -88,10 +88,10 @@ class Subscription(object):
         curr_item = self._items_map.get(item_pos, {})
         # Update the map with new values, merging with the
         # previous ones if any.
-        self._items_map[item_pos] = {
-            k: self._decode(v, curr_item.get(k)) for k, v
+        self._items_map[item_pos] = dict([
+            (k, self._decode(v, curr_item.get(k))) for k, v
             in list(undecoded_item.items())
-        }
+        ])
         # Make an item info as a new event to be passed to listeners
         item_info = {
             'pos': item_pos,
@@ -327,7 +327,7 @@ subscription.addlistener(on_item_update)
 # Registering the Subscription
 sub_key = lightstreamer_client.subscribe(subscription)
 
-raw_input("{:-^80}\n".format("HIT CR TO UNSUBSCRIBE AND DISCONNECT FROM \
+raw_input("{0:-^80}\n".format("HIT CR TO UNSUBSCRIBE AND DISCONNECT FROM \
 LIGHTSTREAMER"))
 
 # Unsubscribing from Lightstreamer by using the subscription key

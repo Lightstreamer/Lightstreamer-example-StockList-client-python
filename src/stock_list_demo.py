@@ -158,7 +158,9 @@ class LSClient(object):
             self._stream_connection_thread.setDaemon(True)
             self._stream_connection_thread.start()
         else:
-            log.error("Server response error: %s" % server_response)
+            lines = self._stream_connection.readlines()
+            lines.insert(0, server_response)
+            log.error("Server response error: \n%s" % "".join(lines))
             raise IOError()
 
     def _join(self):

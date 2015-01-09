@@ -47,7 +47,7 @@ log = logging.getLogger()
 class Subscription(object):
     """Represents a Subscription to be submitted to a Lightstreamer Server."""
 
-    def __init__(self, mode, adapter, items, fields):
+    def __init__(self, mode, items, fields, adapter=""):
         self.item_names = items
         self._items_map = {}
         self.field_names = fields
@@ -107,36 +107,60 @@ class Subscription(object):
 class LSClient(object):
     """Manages the communication with Lightstreamer Server"""
 
-    def __init__(self, base_url, adapter_set):
-        self._base_url = base_url
+    def __init__(self, base_url, adapter_set="", user="", password=""):
+        self._base_url = urlparse.urlparse(base_url)
         self._adapter_set = adapter_set
+        self._user = user
+        self._password = password
         self._session = {}
         self._subscriptions = {}
         self._current_subscription_key = 0
         self._stream_connection = None
         self._stream_connection_thread = None
 
-    def _call(self, url, body):
+    def _encode_params(self, params):
+        """Encode the parameter for HTTP POST submissions, but
+        only for non empty values..."""
+        return urllib.urlencode(
+            dict([(k, v) for (k, v) in params.iteritems() if v])
+        )
+
+    def _call(self, base_url, url, body):
         """Open a network connection and performs HTTP Post
         with provided body.
         """
-        # Combines the base url indicated in the constructor
-        # (for example "http://push.lightstreamer.com') with the
-        # required URL to be used for the specific request.
-        url = urlparse.urljoin(self._base_url, url)
-        return urllib.urlopen(url, data=body)
+        # Combines the "base_url" with the
+        # required "url" to be used for the specific request.
+        url = urlparse.urljoin(base_url.geturl(), url)
+        return urllib.urlopen(url, data=self._encode_params(body))
+
+    def _set_control_link_url(self, custom_address=None):
+        """Set the address to use for the Control Connection
+        in such cases where Lightstreamer is behind a Load Balancer.
+        """
+        if custom_address is None:
+            self._control_url = self._base_url
+        else:
+            parsed_custom_address = urlparse.urlparse("//" + custom_address)
+            self._control_url = parsed_custom_address._replace(
+                scheme=self._base_url[0]
+            )
 
     def _control(self, params):
         params["LS_session"] = self._session["SessionId"]
-        return self._call(CONTROL_URL_PATH, urllib.urlencode(params))
+        return self._call(self._control_url, CONTROL_URL_PATH, params)
 
     def connect(self):
         """Establish a connection to Lightstreamer Server to create
         a new session.
         """
+
         self._stream_connection = self._call(
+            self._base_url,
             CONNECTION_URL_PATH,
-            urllib.urlencode({"LS_adapter_set": self._adapter_set})
+            {"LS_adapter_set": self._adapter_set,
+             "LS_user": self._user,
+             "LS_password": self._password}
         )
         server_response = self._stream_connection.readline().rstrip()
         if server_response == OK_CMD:
@@ -148,6 +172,9 @@ class LSClient(object):
                     self._session[session_key] = session_value
                 else:
                     break
+
+            # Setup of the control link url
+            self._set_control_link_url(self._session.get("ControlAddress"))
 
             # Start a new thread to handle real time updates sent
             # by Lightstreamer Server on the stream connection.
@@ -310,12 +337,13 @@ except Exception as e:
 
 
 # Making a new Subscription in MERGE mode
-subscription = Subscription("MERGE", "QUOTE_ADAPTER",
+subscription = Subscription("MERGE",
                             ["item1", "item2", "item3", "item4",
                              "item5", "item6", "item7", "item8",
                              "item9", "item10", "item11", "item12"],
-                            ["stock_name", "last_price", "time", "bid", "ask"
-                             ])
+                            ["stock_name", "last_price", "time", "bid", "ask"],
+                            "QUOTE_ADAPTER",
+                            )
 
 
 # A simple function acting as a Subscription listener

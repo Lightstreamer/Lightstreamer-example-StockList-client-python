@@ -328,7 +328,7 @@ class LSClient(object):
 logging.basicConfig(level=logging.INFO)
 
 # Establishing a new connection to Lightstreamer Server
-lightstreamer_client = LSClient("http://localhost:8080", "DEMO")
+lightstreamer_client = LSClient("http://push.lightstreamer.com:80", "DEMO")
 try:
     lightstreamer_client.connect()
 except Exception as e:
@@ -337,13 +337,13 @@ except Exception as e:
 
 
 # Making a new Subscription in MERGE mode
-subscription = Subscription("MERGE",
-                            ["item1", "item2", "item3", "item4",
-                             "item5", "item6", "item7", "item8",
-                             "item9", "item10", "item11", "item12"],
-                            ["stock_name", "last_price", "time", "bid", "ask"],
-                            "QUOTE_ADAPTER",
-                            )
+subscription = Subscription(
+    mode="MERGE",
+    items=["item1", "item2", "item3", "item4",
+           "item5", "item6", "item7", "item8",
+           "item9", "item10", "item11", "item12"],
+    fields=["stock_name", "last_price", "time", "bid", "ask"],
+    adapter="QUOTE_ADAPTER")
 
 
 # A simple function acting as a Subscription listener

@@ -51,9 +51,9 @@ and then type:
 /path/to/example/stock_list_demo.py
 ```
 
-The example is configured to connect to http://localhost:8080, but you can easily change these settings modifying the following line:
+The example is configured to connect to http://push.lightstreamer.com:80, but you can easily change these settings modifying the following line:
 
-```lightstreamer_client = LSClient("http://localhost:8080", "DEMO")```
+```lightstreamer_client = LSClient("http://push.lightstreamer.com:80", "DEMO")```
 
 to connect to the correct combination of host and port of your Lightstreamer server.
 

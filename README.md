@@ -59,6 +59,8 @@ to connect to the correct combination of host and port of your Lightstreamer ser
 
 ## See Also
 
+* [A Python Client Example for Lightstreamer](http://blog.lightstreamer.com/2015/01/a-python-client-example-for_14.html)
+
 ### Lightstreamer Adapters Needed by this Demo Client
 
 <!-- START RELATED_ENTRIES -->

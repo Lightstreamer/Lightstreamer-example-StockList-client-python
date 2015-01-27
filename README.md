@@ -79,10 +79,6 @@ to connect to the correct combination of host and port of your Lightstreamer ser
 
 ## Lightstreamer Compatibility Notes
 
-<<<<<<< HEAD
 * Compatible with Lightstreamer server since version 6.0.
-=======
-* Compatible with Lightstreamer server version since 6.0.
->>>>>>> 08c87f75350fa5e59235ee74ede62abd6c16ac69
 * For Lightstreamer Allegro (+ Generic Client API support), Presto, Vivace.
 * For a version of this example compatible with Lightstreamer server version 5.1.2, please refer to [this tag](https://github.com/Weswit/Lightstreamer-example-StockList-client-python/tree/v1.0).

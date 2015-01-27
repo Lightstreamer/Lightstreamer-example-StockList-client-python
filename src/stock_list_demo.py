@@ -158,7 +158,10 @@ class LSClient(object):
         self._stream_connection = self._call(
             self._base_url,
             CONNECTION_URL_PATH,
-            {"LS_adapter_set": self._adapter_set,
+            {
+             "LS_op2": 'create',
+             "LS_cid": 'mgQkwtwdysogQz2BJ4Ji kOj2Bg',
+             "LS_adapter_set": self._adapter_set,
              "LS_user": self._user,
              "LS_password": self._password}
         )

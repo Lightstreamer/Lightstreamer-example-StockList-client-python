@@ -14,12 +14,14 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-import urlparse
-import urllib
+from compat import (parse_url, urljoin, urlencode, _urlopen, _iteritems, \
+        str_to_bytes)
+
 import logging
 import threading
 import sys
 import time
+import traceback
 
 CONNECTION_URL_PATH = "lightstreamer/create_session.txt"
 CONTROL_URL_PATH = "lightstreamer/control.txt"
@@ -108,7 +110,7 @@ class LSClient(object):
     """Manages the communication with Lightstreamer Server"""
 
     def __init__(self, base_url, adapter_set="", user="", password=""):
-        self._base_url = urlparse.urlparse(base_url)
+        self._base_url = parse_url(base_url)
         self._adapter_set = adapter_set
         self._user = user
         self._password = password
@@ -121,8 +123,8 @@ class LSClient(object):
     def _encode_params(self, params):
         """Encode the parameter for HTTP POST submissions, but
         only for non empty values..."""
-        return urllib.urlencode(
-            dict([(k, v) for (k, v) in params.iteritems() if v])
+        return urlencode(
+            dict([(k, v) for (k, v) in _iteritems(params) if v])
         )
 
     def _call(self, base_url, url, body):
@@ -131,8 +133,8 @@ class LSClient(object):
         """
         # Combines the "base_url" with the
         # required "url" to be used for the specific request.
-        url = urlparse.urljoin(base_url.geturl(), url)
-        return urllib.urlopen(url, data=self._encode_params(body))
+        url = urljoin(base_url.geturl(), url)
+        return _urlopen(url, data=str_to_bytes(self._encode_params(body))) # str_to_bytes
 
     def _set_control_link_url(self, custom_address=None):
         """Set the address to use for the Control Connection
@@ -336,6 +338,7 @@ try:
     lightstreamer_client.connect()
 except Exception as e:
     print("Unable to connect to Lightstreamer Server")
+    print(traceback.format_exc())
     sys.exit(1)
 
 

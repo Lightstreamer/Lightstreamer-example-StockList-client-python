@@ -25,7 +25,7 @@ If you want to install a version of this demo pointing to your local Lightstream
 
 * Note that, as prerequisite, the [Lightstreamer - Stock- List Demo - Java Adapter](https://github.com/Weswit/Lightstreamer-example-Stocklist-adapter-java) has to be deployed on your local Lightstreamer Server instance. Please check out that project and follow the installation instructions provided with it.
 * Launch Lightstreamer Server.
-* Go to [http://python.org/download/](http://python.org/download/) and download the appropriate **Python 2** (tested since version 2.6.3) for your OS and follow the instructions to install it on your system. Note that the demo currently **does not support Python 3** and can not be launched from IDLE
+* Go to [http://python.org/download/](http://python.org/download/) and download the appropriate **Python** (tested since version 2.6.3) for your OS and follow the instructions to install it on your system. Note that the demo currently **can not** be launched from IDLE
 
 You can now run the Python script simply executing the following commands on different OS:
 	

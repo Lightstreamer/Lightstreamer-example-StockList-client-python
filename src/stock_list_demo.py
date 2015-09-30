@@ -19,40 +19,7 @@ import logging
 import threading
 import time
 import traceback
-
-# Modules aliasing and function utilities to support a 
-# very coarse version differentiation between Python 2 and Python 3. 
-PY3 = sys.version_info[0] == 3
-PY2 = sys.version_info[0] == 2    
-
-if PY3:
-    from urllib.request import urlopen as _urlopen
-    from urllib.parse import (urlparse as parse_url, urljoin, urlencode)
-
-    def _url_encode(params):
-        return urlencode(params).encode("utf-8")
-    
-    def _iteritems(d):
-        return iter(d.items())
-    
-    def wait_for_input():
-        input("{0:-^80}\n".format("HIT CR TO UNSUBSCRIBE AND DISCONNECT FROM \
-LIGHTSTREAMER"))
-
-else:
-    from urllib import (urlopen as _urlopen, urlencode)
-    from urlparse import urlparse as parse_url
-    from urlparse import urljoin
-
-    def _url_encode(params):
-        return urlencode(params)
- 
-    def _iteritems(d):
-        return d.iteritems()
-    
-    def wait_for_input():
-        raw_input("{0:-^80}\n".format("HIT CR TO UNSUBSCRIBE AND DISCONNECT FROM \
-LIGHTSTREAMER"))
+import compat
 
 CONNECTION_URL_PATH = "lightstreamer/create_session.txt"
 CONTROL_URL_PATH = "lightstreamer/control.txt"
@@ -101,8 +68,8 @@ class Subscription(object):
             return last
         elif value[0] in "#$":
             value = value[1:]
-            
-        return value 
+
+        return value
 
     def addlistener(self, listener):
         self._listeners.append(listener)
@@ -141,7 +108,7 @@ class LSClient(object):
     """Manages the communication with Lightstreamer Server"""
 
     def __init__(self, base_url, adapter_set="", user="", password=""):
-        self._base_url = parse_url(base_url)
+        self._base_url = compat.parse_url(base_url)
         self._adapter_set = adapter_set
         self._user = user
         self._password = password
@@ -154,8 +121,8 @@ class LSClient(object):
     def _encode_params(self, params):
         """Encode the parameter for HTTP POST submissions, but
         only for non empty values..."""
-        return _url_encode(
-            dict([(k, v) for (k, v) in _iteritems(params) if v])
+        return compat._url_encode(
+            dict([(k, v) for (k, v) in compat._iteritems(params) if v])
         )
 
     def _call(self, base_url, url, body):
@@ -164,8 +131,8 @@ class LSClient(object):
         """
         # Combines the "base_url" with the
         # required "url" to be used for the specific request.
-        url = urljoin(base_url.geturl(), url)
-        return _urlopen(url, data=self._encode_params(body)) # str_to_bytes
+        url = compat.urljoin(base_url.geturl(), url)
+        return compat._urlopen(url, data=self._encode_params(body)) # str_to_bytes
 
     def _set_control_link_url(self, custom_address=None):
         """Set the address to use for the Control Connection
@@ -186,12 +153,12 @@ class LSClient(object):
         params["LS_session"] = self._session["SessionId"]
         response = self._call(self._control_url, CONTROL_URL_PATH, params)
         return response.readline().decode("utf-8").rstrip()
-    
+
     def _get_stream(self):
         """Read a single line of content of the Stream Connection."""
         line = self._stream_connection.readline().decode("utf-8").rstrip()
         return line
-    
+
     def connect(self):
         """Establish a connection to Lightstreamer Server to create
         a new session.
@@ -315,7 +282,7 @@ class LSClient(object):
             self._subscriptions[table].notifyupdate(item)
         else:
             log.warning("No subscription found!")
-        
+
 
     def _receive(self):
         receive = True
@@ -408,7 +375,8 @@ subscription.addlistener(on_item_update)
 # Registering the Subscription
 sub_key = lightstreamer_client.subscribe(subscription)
 
-wait_for_input()
+compat.wait_for_input("{0:-^80}\n".format("HIT CR TO UNSUBSCRIBE AND DISCONNECT FROM \
+LIGHTSTREAMER"))
 
 # Unsubscribing from Lightstreamer by using the subscription key
 lightstreamer_client.unsubscribe(sub_key)

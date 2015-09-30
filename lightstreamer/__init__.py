@@ -135,6 +135,7 @@ class LSClient(object):
         # Combines the "base_url" with the
         # required "url" to be used for the specific request.
         url = compat.urljoin(base_url.geturl(), url)
+        #log.debug("urlopen %s with data=%s" % (url, body))
         return compat._urlopen(url, data=self._encode_params(body)) # str_to_bytes
 
     def _set_control_link_url(self, custom_address=None):
@@ -144,7 +145,7 @@ class LSClient(object):
         if custom_address is None:
             self._control_url = self._base_url
         else:
-            parsed_custom_address = parse_url("//" + custom_address)
+            parsed_custom_address = compat.parse_url("//" + custom_address)
             self._control_url = parsed_custom_address._replace(
                 scheme=self._base_url[0]
             )

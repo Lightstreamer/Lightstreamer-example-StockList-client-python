@@ -14,12 +14,15 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-import sys
+from lightstreamer.version import (__author__, __copyright__, __credits__,
+                      __license__, __version__, __maintainer__, __email__,
+                      __status__, __url__)
+
 import logging
 import threading
 import time
 import traceback
-import compat
+import lightstreamer.compat as compat
 
 CONNECTION_URL_PATH = "lightstreamer/create_session.txt"
 CONTROL_URL_PATH = "lightstreamer/control.txt"
@@ -339,47 +342,3 @@ class LSClient(object):
         self._session.clear()
         self._subscriptions.clear()
         self._current_subscription_key = 0
-
-logging.basicConfig(level=logging.INFO)
-
-# Establishing a new connection to Lightstreamer Server
-print("Starting connection")
-#lightstreamer_client = LSClient("http://localhost:8080", "DEMO")
-lightstreamer_client = LSClient("http://push.lightstreamer.com", "DEMO")
-try:
-    lightstreamer_client.connect()
-except Exception as e:
-    print("Unable to connect to Lightstreamer Server")
-    print(traceback.format_exc())
-    sys.exit(1)
-
-
-# Making a new Subscription in MERGE mode
-subscription = Subscription(
-    mode="MERGE",
-    items=["item1", "item2", "item3", "item4",
-           "item5", "item6", "item7", "item8",
-           "item9", "item10", "item11", "item12"],
-    fields=["stock_name", "last_price", "time", "bid", "ask"],
-    adapter="QUOTE_ADAPTER")
-
-
-# A simple function acting as a Subscription listener
-def on_item_update(item_update):
-    print("{stock_name:<19}: Last{last_price:>6} - Time {time:<8} - "
-          "Bid {bid:>5} - Ask {ask:>5}".format(**item_update["values"]))
-
-# Adding the "on_item_update" function to Subscription
-subscription.addlistener(on_item_update)
-
-# Registering the Subscription
-sub_key = lightstreamer_client.subscribe(subscription)
-
-compat.wait_for_input("{0:-^80}\n".format("HIT CR TO UNSUBSCRIBE AND DISCONNECT FROM \
-LIGHTSTREAMER"))
-
-# Unsubscribing from Lightstreamer by using the subscription key
-lightstreamer_client.unsubscribe(sub_key)
-
-# Disconnecting
-lightstreamer_client.disconnect()

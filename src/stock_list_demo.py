@@ -394,7 +394,7 @@ class LSClient(object):
             log.debug("Binding to this active session")
             self.bind()
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 # Establishing a new connection to Lightstreamer Server
 print("Starting connection")

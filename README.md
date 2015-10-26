@@ -6,7 +6,7 @@ This project contains a simple Python script that shows a minimal client-side im
 
 ## Details
 
-The example provides a very simple version of the [Stock-List Demos](https://github.com/Weswit/Lightstreamer-example-Stocklist-client-javascript), where a single subscription to 12 items is submitted.
+The example provides a very simple version of the [Stock-List Demos](https://github.com/Lightstreamer/Lightstreamer-example-Stocklist-client-javascript), where a single subscription to 12 items is submitted.
 The updates are then formatted and displayed on the console.
   
 The script shows all the basic steps required to establish an interaction to Lightstreamer Server. More specifically, the code comprises these actions: 
@@ -23,7 +23,7 @@ It is important to highlight that the example is not meant to be a complete and 
 
 If you want to install a version of this demo pointing to your local Lightstreamer Server, follow these steps:
 
-* Note that, as prerequisite, the [Lightstreamer - Stock- List Demo - Java Adapter](https://github.com/Weswit/Lightstreamer-example-Stocklist-adapter-java) has to be deployed on your local Lightstreamer Server instance. Please check out that project and follow the installation instructions provided with it.
+* Note that, as prerequisite, the [Lightstreamer - Stock- List Demo - Java Adapter](https://github.com/Lightstreamer/Lightstreamer-example-Stocklist-adapter-java) has to be deployed on your local Lightstreamer Server instance. Please check out that project and follow the installation instructions provided with it.
 * Launch Lightstreamer Server.
 * Go to [http://python.org/download/](http://python.org/download/) and download the appropriate **Python** (tested since version 2.6.3) for your OS and follow the instructions to install it on your system. Note that the demo currently **can not** be launched from IDLE.
 
@@ -64,21 +64,21 @@ to connect to the correct combination of host and port of your Lightstreamer ser
 ### Lightstreamer Adapters Needed by this Demo Client
 
 <!-- START RELATED_ENTRIES -->
-* [Lightstreamer - Stock- List Demo - Java Adapter](https://github.com/Weswit/Lightstreamer-example-Stocklist-adapter-java)
+* [Lightstreamer - Stock- List Demo - Java Adapter](https://github.com/Lightstreamer/Lightstreamer-example-Stocklist-adapter-java)
 
 <!-- END RELATED_ENTRIES -->
 
 ### Related Projects
 
-* [Lightstreamer - Stock-List Demos - HTML Clients](https://github.com/Weswit/Lightstreamer-example-Stocklist-client-javascript)
-* [Lightstreamer - Basic Stock-List Demo - jQuery (jqGrid) Client](https://github.com/Weswit/Lightstreamer-example-StockList-client-jquery)
-* [Lightstreamer - Stock-List Demo - Dojo Toolkit Client](https://github.com/Weswit/Lightstreamer-example-StockList-client-dojo)
-* [Lightstreamer - Basic Stock-List Demo - Java SE (Swing) Client](https://github.com/Weswit/Lightstreamer-example-StockList-client-java)
-* [Lightstreamer - Basic Stock-List Demo - .NET Client](https://github.com/Weswit/Lightstreamer-example-StockList-client-dotnet)
-* [Lightstreamer - Stock-List Demos - Flex Clients](https://github.com/Weswit/Lightstreamer-example-StockList-client-flex)
+* [Lightstreamer - Stock-List Demos - HTML Clients](https://github.com/Lightstreamer/Lightstreamer-example-Stocklist-client-javascript)
+* [Lightstreamer - Basic Stock-List Demo - jQuery (jqGrid) Client](https://github.com/Lightstreamer/Lightstreamer-example-StockList-client-jquery)
+* [Lightstreamer - Stock-List Demo - Dojo Toolkit Client](https://github.com/Lightstreamer/Lightstreamer-example-StockList-client-dojo)
+* [Lightstreamer - Basic Stock-List Demo - Java SE (Swing) Client](https://github.com/Lightstreamer/Lightstreamer-example-StockList-client-java)
+* [Lightstreamer - Basic Stock-List Demo - .NET Client](https://github.com/Lightstreamer/Lightstreamer-example-StockList-client-dotnet)
+* [Lightstreamer - Stock-List Demos - Flex Clients](https://github.com/Lightstreamer/Lightstreamer-example-StockList-client-flex)
 
 ## Lightstreamer Compatibility Notes
 
 * Compatible with Lightstreamer server since version 6.0.
 * For Lightstreamer Allegro (+ Generic Client API support), Presto, Vivace.
-* For a version of this example compatible with Lightstreamer server version 5.1.2, please refer to [this tag](https://github.com/Weswit/Lightstreamer-example-StockList-client-python/tree/v1.0).
+* For a version of this example compatible with Lightstreamer server version 5.1.2, please refer to [this tag](https://github.com/Lightstreamer/Lightstreamer-example-StockList-client-python/tree/v1.0).

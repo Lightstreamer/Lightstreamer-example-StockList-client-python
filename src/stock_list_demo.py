@@ -381,12 +381,12 @@ class LSClient(object):
             else:
                 self._forward_update_message(message)
 
-        self._stream_connection = None
         if not rebind:
             log.debug("Closing connection")
             # Clear internal data structures for session
             # and subscriptions management.
             self._stream_connection.close()
+            self._stream_connection = None
             self._session.clear()
             self._subscriptions.clear()
             self._current_subscription_key = 0

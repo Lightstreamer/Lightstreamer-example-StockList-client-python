@@ -257,7 +257,8 @@ class LSClient(object):
         else:
             lines = self._stream_connection.readlines()
             lines.insert(0, stream_line)
-            log.error("Server response error: \n%s", join(lines))
+
+            log.error("\nServer response error: \n%s", "".join([str(line) for line in lines]))
             raise IOError()
 
     def _join(self):
@@ -403,12 +404,12 @@ class LSClient(object):
             self.bind()
 
 logging.basicConfig(stream=sys.stdout, format='%(asctime)s %(levelname)-7s ' +
-                    '%(threadName)-15s %(message)s', level=logging.DEBUG)
+                    '%(threadName)-15s %(message)s', level=logging.INFO)
 
 # Establishing a new connection to Lightstreamer Server
 print("Starting connection")
 # lightstreamer_client = LSClient("http://localhost:8080", "DEMO")
-lightstreamer_client = LSClient("http://push.lightstreamer.com", "DEMO")
+lightstreamer_client = LSClient("http://push.lightstreamer.com", "DEMO1")
 try:
     lightstreamer_client.connect()
 except Exception as e:

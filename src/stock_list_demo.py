@@ -409,7 +409,7 @@ logging.basicConfig(stream=sys.stdout, format='%(asctime)s %(levelname)-7s ' +
 # Establishing a new connection to Lightstreamer Server
 print("Starting connection")
 # lightstreamer_client = LSClient("http://localhost:8080", "DEMO")
-lightstreamer_client = LSClient("http://push.lightstreamer.com", "DEMO1")
+lightstreamer_client = LSClient("http://push.lightstreamer.com", "DEMO")
 try:
     lightstreamer_client.connect()
 except Exception as e:

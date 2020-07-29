@@ -79,6 +79,6 @@ to connect to the correct combination of host and port of your Lightstreamer ser
 
 ## Lightstreamer Compatibility Notes
 
-* Compatible with Lightstreamer server since version 6.0.
+* Compatible with Lightstreamer Server since version 6.0. Obsolete since Server version 6.1, which introduces the new TLCP protocol.
 * Ensure that Generic Client API is supported by Lightstreamer Server license configuration.
 * For a version of this example compatible with Lightstreamer server version 5.1.2, please refer to [this tag](https://github.com/Lightstreamer/Lightstreamer-example-StockList-client-python/tree/v1.0).

@@ -306,7 +306,7 @@ class LSClient(object):
         return self._current_subscription_key
 
     def unsubscribe(self, subcription_key):
-        """Unregister the Subscription associated to the
+        """Unregister the Subscription associated with the
         specified subscription_key.
         """
         log.debug("Making an unsubscription request")

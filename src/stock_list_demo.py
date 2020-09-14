@@ -292,7 +292,7 @@ class LSClient(object):
         # Send the control request to perform the subscription
         log.debug("Making a new subscription request")
         server_response = self._control({
-            "LS_Table": self._current_subscription_key,
+            "LS_table": self._current_subscription_key,
             "LS_op": OP_ADD,
             "LS_data_adapter": subscription.adapter,
             "LS_mode": subscription.mode,

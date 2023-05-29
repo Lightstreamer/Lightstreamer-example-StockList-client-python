@@ -9,8 +9,6 @@ class SubListener:
             bid=update.getValue("bid"),
             ask=update.getValue("ask")))  
     pass
-  def onListenStart(self, aSub):
-    pass
   def onClearSnapshot(self, itemName, itemPos):
     pass
   def onCommandSecondLevelItemLostUpdates(self, lostUpdates, key):
@@ -21,9 +19,9 @@ class SubListener:
     pass
   def onItemLostUpdates(self, itemName, itemPos, lostUpdates):
     pass
-  def onListenEnd(self, subscription):
+  def onListenEnd(self):
     pass
-  def onListenStart(self, subscription):
+  def onListenStart(self):
     pass
   def onSubscription(self):
     pass

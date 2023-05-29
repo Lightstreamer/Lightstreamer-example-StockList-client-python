@@ -74,4 +74,5 @@ to connect to the correct combination of host and port of your Lightstreamer ser
 
 ## Lightstreamer Compatibility Notes
 
-* Compatible with Lightstreamer Server since version 7.2.
+* Compatible with Lightstreamer Python Client SDK 1.0 or newer.
+* Compatible with Lightstreamer Server since version 7.3.2.

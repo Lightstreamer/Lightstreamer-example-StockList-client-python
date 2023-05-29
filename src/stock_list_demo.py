@@ -14,7 +14,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from lightstreamer_client import *
+from lightstreamer.client import *
 from subscription_listener import *
 
 def wait_for_input():
